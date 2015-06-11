@@ -186,24 +186,25 @@ class Grapher extends GrapherHook
             '%s on %s, %s', $service, $host, $viewName
         );
 
-        $pageurl = Url::fromPath($this->baseUrl. '/graph' , array(
+        $pageUrl = Url::fromPath($this->baseUrl. '/graph' , array(
             'host' => $this->pnpClean($host),
             'srv' => $this->pnpClean($service),
             'view' => $view
         ));
-        $imgUrl = sprintf(
-            '%s/image?host=%s&srv=%s&view=%d&source=0&w=120&h=30',
-            $this->baseUrl,
-            urlencode($this->pnpClean($host)),
-            urlencode($this->pnpClean($service)),
-            $view
-        );
+        $imgUrl = Url::fromPath($this->baseUrl. '/image' , array(
+            'host' => $this->pnpClean($host),
+            'srv' => $this->pnpClean($service),
+            'view' => $view,
+            'source' => 0,
+            'w' => 120,
+            'h' => 30
+        ));
 
         $html = '<a href="%s" title="%s"><img src="%s" alt="%s" width="100%%" height="30" /></a>';
 
         return sprintf(
             $html,
-            $pageurl,
+            $pageUrl,
             htmlspecialchars($title),
             $imgUrl,
             htmlspecialchars($viewName)
